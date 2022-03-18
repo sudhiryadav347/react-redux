@@ -1,52 +1,39 @@
-import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 
-const initialState = { counter: 0, show: true }
+const initialState = { counter: 0, show: false   }
 
-const counterReducer = (state = initialState, action) => {
-
-
-  // const { type } = action;
-  // const { amount } = action;
-
-  switch (action.type) {
-
-    case 'increment':
-      return {
-        counter: state.counter + 1,
-        show: state.show
-      }
-
-    case 'increase':
-      return {
-        counter: state.counter + action.amount,
-        show: state.show
-      }
-
-
-    case 'decrement':
-      return {
-        counter: state.counter - 1,
-        show: state.show
-      }
-
-    case 'visibility':
-      return {
-        counter: state.counter,
-        show: !state.show
-      }
-
-    case 'reset':
-      return {
-        counter: state.counter = 0,
-        show: state.show
-      }
-
-    default:
-      return state
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.counter += 1;
+    },
+    increase: (state, action) => {
+      state.counter = state.counter + action.payload.amount;
+    },
+    decrement: (state) => {
+      state.counter -= 1;
+    },
+    visibility: (state) => {
+      state.show = !state.show;
+    },
+    reset: (state) => {
+      state.counter = 0;
+    }
   }
-}
+})
 
-const store = createStore(counterReducer);
+const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer
+  }
+});
+
+export const counterActions = counterSlice.actions;
 export default store;
+
+
+
 
