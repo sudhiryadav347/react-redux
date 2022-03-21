@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authActions } from '../store/index';
+import { authActions } from '../store/auth';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Header = () => {
       <ul style={{ listStyle: 'none' }}>
         {!isAuth && (
           <li>
-            <form onSubmit={loginHandler} >
+            <form onSubmit={loginHandler}>
               <input type="text" name="username" />
               <input
                 type="password"
